@@ -19,8 +19,22 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Set Static Path
 app.use(express.static(path.join(__dirname, 'public')));
 
+var people = [{
+        name: 'praveen',
+        age: 26
+    },
+    {
+        name: 'pct',
+        age: 26
+    },
+    {
+        name: 'pop',
+        age: 26
+    }
+]
 app.get('/', function(req, res) {
-    res.send('hey user');
+    //res.send('hey pct');
+    res.json(people);
 });
 app.listen(3000, function() {
     console.log('server started on port 3000');
