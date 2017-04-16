@@ -2,6 +2,9 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
 var expressValidator = require('express-validator');
+var mongojs = require('mongojs');
+var db = mongojs('customerapp', ['users']);
+
 var app = express();
 
 /*
@@ -46,30 +49,15 @@ app.use(expressValidator({
         };
     }
 }));
-var users = [{
-        id: 1,
-        first_name: 'Praveen',
-        last_name: 'Thapliyal',
-        email: 'pthapliyal781@gmail.com'
-    },
-    {
-        id: 2,
-        first_name: 'Praveen2',
-        last_name: 'Thapliyal',
-        email: 'pthapliyal781@gmail.com'
-    },
-    {
-        id: 3,
-        first_name: 'Praveen3',
-        last_name: 'Thapliyal',
-        email: 'pthapliyal781@gmail.com'
-    }
-]
+
 app.get('/', function(req, res) {
     //res.send('hey pct');
-    res.render('index', {
-        title: 'Customers',
-        users: users
+    db.users.find(function(err, docs) {
+        console.log(docs);
+        res.render('index', {
+            title: 'Customers',
+            users: docs
+        });
     });
 });
 
