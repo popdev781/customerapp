@@ -23,6 +23,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Set Static Path
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Global Vars
+app.use(function(req, res, next) {
+    res.locals.errors = null;
+    next();
+});
+
 // Express error validator
 app.use(expressValidator({
     errorFormatter: function(param, msg, value) {
@@ -75,7 +81,12 @@ app.post('/users/add', function(req, res) {
     var errors = req.validationErrors();
 
     if (errors) {
-        console.log('Errors');
+        res.render('index', {
+            title: 'Customers',
+            users: users,
+            errors: errors
+        });
+        //console.log('Errors');
     } else {
         var newUser = {
             first_name: req.body.first_name,
