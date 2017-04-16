@@ -23,14 +23,31 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Set Static Path
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+var users = [{
+        id: 1,
+        first_name: 'Praveen',
+        last_name: 'Thapliyal',
+        email: 'pthapliyal781@gmail.com'
+    },
+    {
+        id: 2,
+        first_name: 'Praveen2',
+        last_name: 'Thapliyal',
+        email: 'pthapliyal781@gmail.com'
+    },
+    {
+        id: 3,
+        first_name: 'Praveen3',
+        last_name: 'Thapliyal',
+        email: 'pthapliyal781@gmail.com'
+    }
+]
 app.get('/', function(req, res) {
     //res.send('hey pct');
-
     res.render('index', {
-        title: 'Customers'
+        title: 'Customers',
+        users: users
     });
-
 });
 app.listen(3000, function() {
     console.log('server started on port 3000');
